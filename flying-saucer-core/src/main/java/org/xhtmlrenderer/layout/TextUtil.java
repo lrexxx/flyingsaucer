@@ -39,6 +39,10 @@ public class TextUtil {
      * @param style
      * @return       Returns
      */
+	//@ requires text != null && style != null;
+	//@ requires (style.getIdent( CSSName.FONT_VARIANT ) == IdentValue.SMALL_CAPS) || (style.getIdent( CSSName.TEXT_TRANSFORM ) == (IdentValue.LOWERCASE || IdentValue.UPPERCASE || IdentValue.CAPITALIZE));
+	//@ ensures \result == text.toLowerCase();
+	//@ ensures text == (\old(text).toLowerCase()  || \old(text).toUpperCase() || capitalizeWords(\old(text)) );
     public static String transformText( String text, CalculatedStyle style ) {
         IdentValue transform = style.getIdent( CSSName.TEXT_TRANSFORM );
         if ( transform == IdentValue.LOWERCASE ) {
@@ -93,6 +97,8 @@ public class TextUtil {
      * @param newChar Replacement character
      * @return        Returns the new text
      */
+    //@requires text != null && index >= 0 && text.length() >= 0; 	 
+    //@ ensures \result.charAt(index) == newChar;
     public static String replaceChar( String text, char newChar, int index ) {
         int textLength = text.length();
         StringBuilder b = new StringBuilder(textLength);
@@ -133,7 +139,10 @@ public class TextUtil {
      * @param text  PARAM
      * @return      Returns
      */
-    private static String capitalizeWords( String text ) {
+    //@requires text != null;
+    //@ensures \old(text) == text.toLowerCase();
+    //@ensures \result.matches("[A-Z]+\\w+)+");
+    private /*@ pure @*/ static String capitalizeWords( String text ) {
         //Uu.p("start = -"+text+"-");
         if ( text.length() == 0 ) {
             return text;
@@ -148,7 +157,6 @@ public class TextUtil {
         for ( int i = 0; i < text.length(); i++ ) {
             String ch = text.substring( i, i + 1 );
             //Uu.p("ch = " + ch + " cap = " + cap);
-
 
             if ( cap ) {
                 sb.append( ch.toUpperCase() );
