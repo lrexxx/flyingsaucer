@@ -119,6 +119,7 @@ public class ImageRenderer {
 	 * @param path
 	 * @param width
 	 */
+	
 	public static BufferedImage renderImageToOutput(String url, FSImageWriter fsw, String path, int width)
 			throws IOException {
 

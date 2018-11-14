@@ -59,7 +59,7 @@ public class CascadedStyle {
     /**
      * Map of PropertyDeclarations, keyed by {@link CSSName}
      */
-    private Map cascadedProperties;
+    private /*@ spec_public*/ Map cascadedProperties;
     
     private String fingerprint;
     
@@ -226,6 +226,12 @@ public class CascadedStyle {
      *
      * @return Iterator over a set of properly cascaded PropertyDeclarations.
      */
+    
+    //ask how to iter with monitor
+    /*@ ensures 
+     		(\forall int i; i >= 0 && i < this.cascadedProperties.size(); 
+     			 \result.next() == this.cascadedProperties.values().iterator().next());
+     */
     public java.util.Iterator getCascadedPropertyDeclarations() {
         List list = new ArrayList(cascadedProperties.size());
         Iterator iter = cascadedProperties.values().iterator();
@@ -237,7 +243,7 @@ public class CascadedStyle {
 
     public int countAssigned() { return cascadedProperties.size(); }
 
-    public String getFingerprint() {
+    public /*@ pure */String getFingerprint() {
         if (this.fingerprint == null) {
             StringBuffer sb = new StringBuffer();
             Iterator iter = cascadedProperties.values().iterator();

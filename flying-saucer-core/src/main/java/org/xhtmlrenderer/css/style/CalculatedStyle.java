@@ -91,7 +91,7 @@ public class CalculatedStyle {
     /**
      * Cache child styles of this style that have the same cascaded properties
      */
-    private final java.util.HashMap _childCache = new java.util.HashMap();
+    private /*@ spec_public*/ final java.util.HashMap _childCache = new java.util.HashMap();
     /*private java.util.HashMap _childCache = new java.util.LinkedHashMap(5, 0.75f, true) {
         private static final int MAX_ENTRIES = 10;
 
@@ -174,6 +174,7 @@ public class CalculatedStyle {
      * @param matched the CascadedStyle to apply
      * @return The derived child style
      */
+    //@ ensures \result != null && \result == \old(this._childCache).put(matched.getFingerprint(), (CalculatedStyle) _childCache.get(matched.getFingerprint()));
     public synchronized CalculatedStyle deriveStyle(CascadedStyle matched) {
         String fingerprint = matched.getFingerprint();
         CalculatedStyle cs = (CalculatedStyle) _childCache.get(fingerprint);

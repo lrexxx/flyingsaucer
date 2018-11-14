@@ -45,12 +45,12 @@ public class DeferredImageReplacedElement extends ImageReplacedElement {
     private Point _location = new Point(0, 0);
 
     private final RepaintListener repaintListener;
-    private final int _targetHeight;
-    private final int _targetWidth;
+    private /*@ spec_public */final int _targetHeight;
+    private /*@ spec_public */final int _targetWidth;
 
     private boolean _doScaleImage;
     private boolean _loaded;
-    private final ImageResource _imageResource;
+    private /*@ spec_public */final ImageResource _imageResource;
 
 
     /**
@@ -62,6 +62,9 @@ public class DeferredImageReplacedElement extends ImageReplacedElement {
      * @param imageResource
      * @param repaintListener
      */
+    
+    //@ requires \typeof(w) == \type(int) && \typeof(h) == \type(int);
+    //@ ensures this._image.getWidth(null) == _targetWidth && this._image.getHeight(null) == _targetHeight;
     public DeferredImageReplacedElement(ImageResource imageResource, RepaintListener repaintListener, int w, int h) {
         this._imageResource = imageResource;
         _loaded = false;
