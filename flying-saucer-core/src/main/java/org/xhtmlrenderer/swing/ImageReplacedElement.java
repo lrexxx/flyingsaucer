@@ -21,6 +21,8 @@ package org.xhtmlrenderer.swing;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.util.Observer;
 
 import org.xhtmlrenderer.extend.ReplacedElement;
 import org.xhtmlrenderer.layout.LayoutContext;
@@ -32,7 +34,7 @@ import org.xhtmlrenderer.util.ImageUtil;
  * container for images included within XML being rendered. The image contained is immutable.
  */
 public class ImageReplacedElement implements ReplacedElement {
-    protected Image _image;
+    protected /*@ spec_public*/ Image _image;
     
     private Point _location = new Point(0, 0);
 
@@ -49,6 +51,10 @@ public class ImageReplacedElement implements ReplacedElement {
      * @param targetWidth The width we'd like the image to have, in pixels.
      * @param targetHeight The height we'd like the image to have, in pixels.
      */
+    //check if needed to validate width and height in the JML code
+    /*@ requires image != null;
+    	ensures this._image.getWidth(null) == targetWidth && this._image.getHeight(null) == targetHeight;
+     @*/
     public ImageReplacedElement(Image image, int targetWidth, int targetHeight) {
 		if (targetWidth > 0 || targetHeight > 0) {
             int w = image.getWidth(null);

@@ -40,9 +40,8 @@ public class TextUtil {
      * @return       Returns
      */
 	//@ requires text != null && style != null;
-	//@ requires (style.getIdent( CSSName.FONT_VARIANT ) == IdentValue.SMALL_CAPS) || (style.getIdent( CSSName.TEXT_TRANSFORM ) == (IdentValue.LOWERCASE || IdentValue.UPPERCASE || IdentValue.CAPITALIZE));
 	//@ ensures \result == text.toLowerCase();
-	//@ ensures text == (\old(text).toLowerCase()  || \old(text).toUpperCase() || capitalizeWords(\old(text)) );
+	//@ ensures text == \old(text).toLowerCase() || text == \old(text).toUpperCase();
     public static String transformText( String text, CalculatedStyle style ) {
         IdentValue transform = style.getIdent( CSSName.TEXT_TRANSFORM );
         if ( transform == IdentValue.LOWERCASE ) {
