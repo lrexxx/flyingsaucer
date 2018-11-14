@@ -122,6 +122,9 @@ public class WhitespaceStripper {
      * @return whether the next leading space should collapse or
      *         not.
      */
+    
+    //@ requires iB != null;
+    //@ ensures ((iB.getText() == "" && \result == collapseLeading) || iB.getText() != "" && (iB.getText().endsWith(SPACE) && (iB.getStyle().getIdent(CSSName.WHITE_SPACE) == IdentValue.NORMAL || iB.getStyle().getIdent(CSSName.WHITE_SPACE) == IdentValue.NOWRAP || iB.getStyle().getIdent(CSSName.WHITE_SPACE) == IdentValue.PRE)));
     private static boolean stripWhitespace(InlineBox iB, boolean collapseLeading) {
 
         IdentValue whitespace = iB.getStyle().getIdent(CSSName.WHITE_SPACE);

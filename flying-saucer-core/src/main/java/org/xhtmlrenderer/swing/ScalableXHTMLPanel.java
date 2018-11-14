@@ -111,6 +111,7 @@ public class ScalableXHTMLPanel extends XHTMLPanel {
 	 * @param x The displayed x position
 	 * @param y the displayed y position
 	 */
+	
 	public Box find(int x, int y) {
 		Point p = convertFromScaled(x, y);
 		Layer l = getRootLayer();

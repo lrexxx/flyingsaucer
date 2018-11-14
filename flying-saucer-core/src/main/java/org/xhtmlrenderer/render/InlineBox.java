@@ -78,7 +78,7 @@ public class InlineBox implements Styleable {
         _textNode = textNode;
     }
 
-    public String getText() {
+    public /*@ pure @*/String getText() {
         return _text;
     }
 
@@ -116,7 +116,7 @@ public class InlineBox implements Styleable {
         _startsHere = startsHere;
     }
 
-    public CalculatedStyle getStyle() {
+    public /*@ pure @*/ CalculatedStyle getStyle() {
         return _style;
     }
 

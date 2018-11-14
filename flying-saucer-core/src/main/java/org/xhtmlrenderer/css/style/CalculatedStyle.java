@@ -270,7 +270,7 @@ public class CalculatedStyle {
      * @param cssName PARAM
      * @return The ident value
      */
-    public IdentValue getIdent(CSSName cssName) {
+    public /*@ pure @*/ IdentValue getIdent(CSSName cssName) {
         return valueByName(cssName).asIdentValue();
     }
 
@@ -543,7 +543,7 @@ public class CalculatedStyle {
      * @param cssName The CSS property name, e.g. "font-family"
      * @return See desc.
      */
-    public FSDerivedValue valueByName(CSSName cssName) {
+    public /*@ pure @*/ FSDerivedValue valueByName(CSSName cssName) {
         FSDerivedValue val = _derivedValuesById[cssName.FS_ID];
 
         boolean needInitialValue = val == IdentValue.FS_INITIAL_VALUE;

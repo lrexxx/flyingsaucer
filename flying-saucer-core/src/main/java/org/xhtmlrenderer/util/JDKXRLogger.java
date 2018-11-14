@@ -207,6 +207,10 @@ public class JDKXRLogger implements XRLogger {
      *                         configuration files, for handlers) of FQN of log handlers.
      * @return Map of handler class names to handler instances.
      */
+    /*@ ensures
+     		(\forall int i; 0 <= i && i < names(handlerClassList).length - 1;
+     			\result.containsKey(names(handlerClassList)[i]));
+     */
     private static Map<String, Handler> configureLogHandlers(List<Logger> loggers, final String handlerClassList) {
         final String[] names = handlerClassList.split(" ");
         final Map<String, Handler> handlers = new HashMap<String, Handler>(names.length);
@@ -238,7 +242,11 @@ public class JDKXRLogger implements XRLogger {
         }
         return handlers;
     }
-
+    
+    public static /*@ pure @*/ String[] names(String handlerClassList) {
+    	String[] names = handlerClassList.split(" ");
+    	return names;
+    }
     /**
      * Parses the levelValue into a Level instance and assigns to the Logger instance named by loggerName; if the
      * the levelValue is invalid (e.g. misspelled), assigns Level.OFF to the logger.
